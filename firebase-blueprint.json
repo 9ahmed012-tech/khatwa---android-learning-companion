@@ -1,0 +1,79 @@
+{
+  "entities": {
+    "studentProfile": {
+      "title": "Student Profile",
+      "description": "User profile with grade, progress, stats, and preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "stage": { "type": "string" },
+        "grade": { "type": "string" },
+        "gradeAr": { "type": "string" },
+        "track": { "type": "string" },
+        "educationSystem": { "type": "string" },
+        "xp": { "type": "number" },
+        "level": { "type": "number" },
+        "streakDays": { "type": "number" },
+        "todayGoalMinutes": { "type": "number" },
+        "completedMinutesToday": { "type": "number" },
+        "todayGoalSubject": { "type": "string" },
+        "currentLessonId": { "type": "string" },
+        "currentSkillId": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "name"]
+    },
+    "studyProgress": {
+      "title": "Study Progress Log",
+      "description": "Record of completed lessons and study minutes",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "lessonId": { "type": "string" },
+        "subjectId": { "type": "string" },
+        "score": { "type": "number" },
+        "completedAt": { "type": "string" }
+      },
+      "required": ["studentId", "lessonId"]
+    },
+    "studentSettings": {
+      "title": "Student Settings",
+      "description": "Customizable study reminders and prayer notification preferences",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "studyRemindersEnabled": { "type": "boolean" },
+        "studyReminderTime": { "type": "string" },
+        "studyDurationGoal": { "type": "number" },
+        "soundEnabled": { "type": "boolean" },
+        "weekendRemindersEnabled": { "type": "boolean" },
+        "prayerAlertsEnabled": { "type": "boolean" },
+        "prayerTiming": { "type": "string" },
+        "fajrEnabled": { "type": "boolean" },
+        "dhuhrEnabled": { "type": "boolean" },
+        "asrEnabled": { "type": "boolean" },
+        "maghribEnabled": { "type": "boolean" },
+        "ishaEnabled": { "type": "boolean" },
+        "athanTone": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["studentId"]
+    }
+  },
+  "firestore": {
+    "/students/{studentId}": {
+      "schema": "studentProfile",
+      "description": "Individual student profile documents"
+    },
+    "/students/{studentId}/progress/{progressId}": {
+      "schema": "studyProgress",
+      "description": "Progress logs for a student"
+    },
+    "/students/{studentId}/settings/preferences": {
+      "schema": "studentSettings",
+      "description": "Student notification and study reminder preferences"
+    }
+  }
+}

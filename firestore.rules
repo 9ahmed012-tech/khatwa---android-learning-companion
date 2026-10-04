@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+
+      match /progress/{progressId} {
+        allow read: if true;
+        allow write: if isAuthenticated();
+      }
+
+      match /settings/{settingId} {
+        allow read: if true;
+        allow write: if isAuthenticated();
+      }
+    }
+  }
+}
